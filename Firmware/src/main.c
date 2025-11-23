@@ -64,14 +64,11 @@ int main(void)
 {
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
 
-    SystemCoreClockUpdate();
+    SystemCoreClockUpdate();    // initializeTimer(8049, 999); // 3612.578 Sekunden
+
     Delay_Init();
     Delay_Ms(1000);
     GPIOConfig();
-
-#ifdef F4P6
-    DoInitSequence();
-#endif
 
 #if defined(USE_UART_1MIN) || defined(USE_UART_60MIN)
     USART_Printf_Init(115200);
@@ -82,7 +79,7 @@ int main(void)
     initializeTimer(2666, 999); // 1kHz, 1s period
 #endif
 #ifdef BUILDIN_RC
-    initializeTimer(8049, 999); // 1kHz, 1s period
+    initializeTimer(8023, 999); // 1kHz, 1s period
 #endif
 
     while (1)
@@ -94,11 +91,6 @@ int main(void)
         GPIO_WriteBit(LED_FAIRY_PORT, LED_FAIRY_PIN, BLINKY_ON);
         countToTarget(targetActive);
 
-#ifdef F4P6
-        for (int i = GPIO_Pin_1; i < GPIO_Pin_7; i++)
-            GPIO_WriteBit(LED_FAIRY_PORT, i, BLINKY_OFF);
-#endif
-
 #ifdef USE_UART_60MIN
         printf("B\n");
         printf("A\n");
@@ -106,11 +98,6 @@ int main(void)
 
         GPIO_WriteBit(LED_FAIRY_PORT, LED_FAIRY_PIN, BLINKY_OFF);
         countToTarget(targetPause);
-
-#ifdef F4P6
-        for (int i = GPIO_Pin_1; i < GPIO_Pin_7; i++)
-            GPIO_WriteBit(LED_FAIRY_PORT, i, BLINKY_OFF);
-#endif
 
 #ifdef USE_UART_60MIN
         printf("B\n");
@@ -120,10 +107,6 @@ int main(void)
 
 void countToTarget(uint32_t target)
 {
-#ifdef F4P6
-    const uint32_t fraction = target / 6;
-#endif
-
 #ifdef USE_UART_1MIN
     const uint32_t moduloCount = 60;
     printf("A\n");
@@ -132,21 +115,6 @@ void countToTarget(uint32_t target)
     actCount = 0;
     while (actCount < target)
     {
-#ifdef F4P6
-        if (actCount >= fraction)
-            GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_1, BLINKY_ON);
-        if (actCount >= fraction * 2)
-            GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_2, BLINKY_ON);
-        if (actCount >= fraction * 3)
-            GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_3, BLINKY_ON);
-        if (actCount >= fraction * 4)
-            GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_4, BLINKY_ON);
-        if (actCount >= fraction * 5)
-            GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_5, BLINKY_ON);
-        if (actCount >= fraction * 6 - 2)
-            GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_6, BLINKY_ON);
-#endif
-
         Delay_Ms(5);
 
 #ifdef USE_UART_1MIN
@@ -161,8 +129,6 @@ void countToTarget(uint32_t target)
             done = false;
         }
 #endif
-
-        // PWR_EnterSTANDBYMode(PWR_STANDBYEntry_WFE);
     }
 }
 

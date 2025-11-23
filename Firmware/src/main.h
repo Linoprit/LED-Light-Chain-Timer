@@ -3,7 +3,7 @@
 
 
 #undef USE_UART_1MIN
-#define USE_UART_60MIN
+#undef USE_UART_60MIN
 
 // Definitions to allow easy adjustment
 #define BLINKY_GPIO_PORT GPIOD
@@ -31,7 +31,6 @@ void HardFault_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 void GPIOConfig()
 {
     GPIO_InitTypeDef GPIO_InitStructure = {0};
-    // GPIO_InitTypeDef GPIO_InitStructureLedFairy = {0};
 
     RCC_APB2PeriphClockCmd(
         RCC_APB2Periph_GPIOA | RCC_APB2Periph_GPIOC | RCC_APB2Periph_GPIOD, ENABLE);
@@ -47,30 +46,6 @@ void GPIOConfig()
     GPIO_InitStructure.GPIO_Speed = GPIO_Speed_2MHz;
 
 #ifdef F4P6
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_6;
-    GPIO_Init(LED_FAIRY_PORT, &GPIO_InitStructure);
-    GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_6, BLINKY_OFF);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_5;
-    GPIO_Init(LED_FAIRY_PORT, &GPIO_InitStructure);
-    GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_5, BLINKY_OFF);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_4;
-    GPIO_Init(LED_FAIRY_PORT, &GPIO_InitStructure);
-    GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_4, BLINKY_OFF);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_3;
-    GPIO_Init(LED_FAIRY_PORT, &GPIO_InitStructure);
-    GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_3, BLINKY_OFF);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_2;
-    GPIO_Init(LED_FAIRY_PORT, &GPIO_InitStructure);
-    GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_2, BLINKY_OFF);
-
-    GPIO_InitStructure.GPIO_Pin = GPIO_Pin_1;
-    GPIO_Init(LED_FAIRY_PORT, &GPIO_InitStructure);
-    GPIO_WriteBit(LED_FAIRY_PORT, GPIO_Pin_1, BLINKY_OFF);
-
     GPIO_InitStructure.GPIO_Pin = BLINKY_GPIO_PIN;
     GPIO_Init(BLINKY_GPIO_PORT, &GPIO_InitStructure);
     GPIO_WriteBit(BLINKY_GPIO_PORT, BLINKY_GPIO_PIN, BLINKY_OFF);
@@ -93,30 +68,3 @@ void GPIOConfig()
     GPIO_Init(GPIOD, &GPIO_InitStructure);
 #endif
 }
-
-#ifdef F4P6
-void DoInitSequence()
-{
-    uint32_t bits = 1;
-    for (int i = 0; i < 7; i++)
-    {
-        GPIO_WriteBit(LED_FAIRY_PORT, bits, BLINKY_ON);
-        bits = bits << 1;
-        Delay_Ms(500);
-    }
-
-    GPIO_WriteBit(BLINKY_GPIO_PORT, BLINKY_GPIO_PIN, BLINKY_ON);
-    Delay_Ms(500);
-
-    bits = 1;
-    for (int i = 0; i < 7; i++)
-    {
-        GPIO_WriteBit(LED_FAIRY_PORT, bits, BLINKY_OFF);
-        bits = bits << 1;
-        Delay_Ms(500);
-    }
-
-    GPIO_WriteBit(BLINKY_GPIO_PORT, BLINKY_GPIO_PIN, BLINKY_OFF);
-    Delay_Ms(500);
-}
-#endif
