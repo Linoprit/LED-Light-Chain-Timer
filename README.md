@@ -3,7 +3,9 @@ A simple timer for LED chains. Switch it on and the LED chain lights for 6h, the
 
 The usage of a CH32V003J4M6 allows to directly connect the schematic to a 3.6V LiIon-Battery. To protect the battery from discharging to dangerus voltage levels, there is a protection board added, that also allows to recharge. 
 
-<img src="Doc/Ressources/00_IMG_20251215_135505.jpg" alt="drawing" width="300"/>
+olarized dark             |  Solarized Ocean
+:-------------------------:|:-------------------------:
+<img src="Doc/Ressources/00_IMG_20251215_135505.jpg" alt="drawing" width="300"/> |
 <img src="Doc/Ressources/05_IMG_20251215_135531.jpg" alt="drawing" width="300"/>
 
 To make it look nice, everything is packed in a wooden box.
