@@ -60,7 +60,11 @@ Don't forget some boards, where you could solder everything on :-).
 If you want a CPU with more pins use this one: [CH32V003F4P6](https://de.aliexpress.com/item/1005009062407508.html?spm=a2g0o.order_list.order_list_main.64.41385c5fsbANZR&gatewayAdapt=glo2deu)
 
 ## The Software...
-...is really nothing special. 
+...is really nothing special, there is only a main.c and a main.h. Simply use [PlatformIo](https://platformio.org/) to compile it. 
+
+- [PIO Installation](https://platformio.org/install/ide)
+- [PIO with VS Code ](https://platformio.org/platformio-ide)
+
 
 You could use the Python script to measure some timings. Connect the TX-Pin of the CPU to the RX of the programmer. Then simply activate the defines in main.h. Don't activate both lines.
 
