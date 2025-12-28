@@ -50,6 +50,7 @@ Again, the battery with protection board.
 - [CH32V003J4M6](https://de.aliexpress.com/item/1005008597052746.html?spm=a2g0o.order_list.order_list_main.39.41385c5fsbANZR&gatewayAdapt=glo2deu)
 - [TP4056 Protection Board ()](https://de.aliexpress.com/item/1005007980101977.html?spm=a2g0o.order_list.order_list_main.9.41385c5fsbANZR&gatewayAdapt=glo2deu)
 - [Adapter Boards for the CPUs](https://de.aliexpress.com/item/1005006991835764.html?spm=a2g0o.order_list.order_list_main.4.41385c5fsbANZR&gatewayAdapt=glo2deu)
+- [Connectors](https://de.aliexpress.com/item/1005009345725922.html?spm=a2g0o.order_list.order_list_main.29.41385c5fsbANZR&gatewayAdapt=glo2deu)
 - [Programmer](https://de.aliexpress.com/item/1005005180653105.html?spm=a2g0o.order_list.order_list_main.54.41385c5fsbANZR&gatewayAdapt=glo2deu)
 > [!NOTE]
 > You do need the WCH LinkE! The WCH-Link (without 'E') will not work.
