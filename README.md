@@ -5,8 +5,7 @@ The usage of a CH32V003J4M6 allows to directly connect the schematic to a 3.6V L
 
 olarized dark             |  Solarized Ocean
 :-------------------------:|:-------------------------:
-<img src="Doc/Ressources/00_IMG_20251215_135505.jpg" alt="drawing" width="300"/> |
-<img src="Doc/Ressources/05_IMG_20251215_135531.jpg" alt="drawing" width="300"/>
+<img src="Doc/Ressources/00_IMG_20251215_135505.jpg" alt="drawing" width="300"/> | <img src="Doc/Ressources/05_IMG_20251215_135531.jpg" alt="drawing" width="300"/>
 
 To make it look nice, everything is packed in a wooden box.
 The left image shows an older version with a switch. It turned out, that it could be omitted.
