@@ -1,5 +1,6 @@
 #include <ch32v00x.h>
 #include <debug.h>
+#include <stdbool.h>
 
 
 #undef USE_UART_1MIN
@@ -10,12 +11,18 @@
 #define BLINKY_GPIO_PIN GPIO_Pin_2
 #define LED_FAIRY_PORT GPIOC
 #ifdef J4M6
-#define LED_FAIRY_PIN GPIO_Pin_1
+#define LED_FAIRY_PIN_01 GPIO_Pin_1
+#define LED_FAIRY_PIN_02 GPIO_Pin_2
+#define LED_FAIRY_PIN_03 GPIO_Pin_4
 #else
-#define LED_FAIRY_PIN GPIO_Pin_0
+#define LED_FAIRY_PIN GPIO_Pin_1
+#define LED_FAIRY_PIN GPIO_Pin_2
+#define LED_FAIRY_PIN GPIO_Pin_3
 #endif
-#define BLINKY_ON 1
-#define BLINKY_OFF 0
+#define BLINKY_ON 1u
+#define BLINKY_OFF 0u
+#define FAIRY_ON 0u
+#define FAIRY_OFF 1u
 // #define BLINK_LENGTH_MS 100
 
 // Error codes
@@ -27,6 +34,12 @@ void parse_USART(void);
 
 void NMI_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
 void HardFault_Handler(void) __attribute__((interrupt("WCH-Interrupt-fast")));
+
+void SwitchFairyPins(uint_fast8_t OnOrOff){
+    GPIO_WriteBit(LED_FAIRY_PORT, LED_FAIRY_PIN_01, OnOrOff);
+    GPIO_WriteBit(LED_FAIRY_PORT, LED_FAIRY_PIN_02, OnOrOff);
+    GPIO_WriteBit(LED_FAIRY_PORT, LED_FAIRY_PIN_03, OnOrOff);
+}
 
 void GPIOConfig()
 {
@@ -52,9 +65,9 @@ void GPIOConfig()
 #endif
 
     // ---------
-    GPIO_InitStructure.GPIO_Pin = LED_FAIRY_PIN;
+    GPIO_InitStructure.GPIO_Pin = LED_FAIRY_PIN_01;
     GPIO_Init(LED_FAIRY_PORT, &GPIO_InitStructure);
-    GPIO_WriteBit(LED_FAIRY_PORT, LED_FAIRY_PIN, BLINKY_OFF);
+    SwitchFairyPins(FAIRY_OFF);
 
     // remap UTX pin to PD6 on J4M6
 #if (defined(USE_UART_1MIN) || defined(USE_UART_60MIN)) && defined J4M6

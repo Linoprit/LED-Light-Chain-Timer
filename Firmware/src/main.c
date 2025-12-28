@@ -64,7 +64,7 @@ int main(void)
 {
     NVIC_PriorityGroupConfig(NVIC_PriorityGroup_1);
 
-    SystemCoreClockUpdate();    // initializeTimer(8049, 999); // 3612.578 Sekunden
+    SystemCoreClockUpdate(); // initializeTimer(8049, 999); // 3612.578 Sekunden
 
     Delay_Init();
     Delay_Ms(1000);
@@ -82,13 +82,21 @@ int main(void)
     initializeTimer(8023, 999); // 1kHz, 1s period
 #endif
 
+    for (uint_fast8_t i = 0; i < 4; i++)
+    {
+        SwitchFairyPins(FAIRY_ON);
+        Delay_Ms(300);
+        SwitchFairyPins(FAIRY_OFF);
+        Delay_Ms(300);
+    }
+
     while (1)
     {
 #ifdef USE_UART_60MIN
         printf("A\n");
 #endif
 
-        GPIO_WriteBit(LED_FAIRY_PORT, LED_FAIRY_PIN, BLINKY_ON);
+        SwitchFairyPins(FAIRY_ON);
         countToTarget(targetActive);
 
 #ifdef USE_UART_60MIN
@@ -96,7 +104,7 @@ int main(void)
         printf("A\n");
 #endif
 
-        GPIO_WriteBit(LED_FAIRY_PORT, LED_FAIRY_PIN, BLINKY_OFF);
+        SwitchFairyPins(FAIRY_OFF);
         countToTarget(targetPause);
 
 #ifdef USE_UART_60MIN
